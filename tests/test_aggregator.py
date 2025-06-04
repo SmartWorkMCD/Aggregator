@@ -35,7 +35,7 @@ def test_insert_log_and_metrics():
     metrics = calculate_metrics()
 
     # Assertions
-    assert "total_registros" in metrics
-    assert metrics["total_registros"] >= 1
+    assert "total_registos" in metrics
+    assert metrics["total_registos"] >= 1
     assert metrics["tempo_medio_montagem"] > 0
     assert isinstance(metrics["por_estacao"], dict)

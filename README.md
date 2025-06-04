@@ -6,6 +6,20 @@ Repository for the aggregator microservice of the SmartWorkMCD project 2024/25 U
 ### Description:
 - Aggregates data and analytics at the last workstation in the assembly line
 
+## Input Data Format
+The Aggregator expects JSON data in the following format:
+
+```json
+{
+  "station_id": "string",
+  "timestamp": "ISO 8601 string",
+  "assembly_time": 45.2,
+  "defect_count": 1,
+  "defect_type": "alignment",
+  "success": false
+}
+```
+
 ### Functionality:
 - Collects and stores defect rates, assembly times, and performance metrics.
 - Generates reports on system efficiency.
@@ -20,8 +34,8 @@ To run the app locally, follow these steps:
 
 1. **Clone the repository**:
     ```sh
-    git clone https://github.com/SmartWorkMCD/Hand_Tracking.git
-    cd Hand_Tracking
+    git clone https://github.com/SmartWorkMCD/Aggregator.git
+    cd Aggregator
     ```
 
 2. **Create a virtual environment and activate it**:
@@ -45,6 +59,22 @@ To run the app locally, follow these steps:
     ```sh
     python3 app/main.py
     ```
+
+6. **Run the API (optional):**
+    ```sh
+    uvicorn app.api_server:app --reload
+    ```
+
+    - Access the API docs at: http://127.0.0.1:8000/docs
+    - Access the endpoint directly: http://127.0.0.1:8000/metrics
+
+
+7. **Run the data collector (optional):**
+    ```sh
+    python app/data_collector.py
+    ```
+
+    - The service will listen on port 5001 for incoming JSON data from workstations.
 
 ## Running the Tests
 
