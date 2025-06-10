@@ -19,19 +19,31 @@ def create_db():
     conn.commit()
     conn.close()
 
-def insert_log(data):
-    conn = sqlite3.connect(DB_NAME)
-    cursor = conn.cursor()
-    cursor.execute("""
-        INSERT INTO logs (station_id, timestamp, assembly_time, defect_count, defect_type, success)
-        VALUES (?, ?, ?, ?, ?, ?)
-    """, (
-        data['station_id'],
-        data['timestamp'],
-        data['assembly_time'],
-        data['defect_count'],
-        data['defect_type'],
-        data['success']
-    ))
-    conn.commit()
-    conn.close()
+def insert_log(data) -> bool:
+    try:
+        conn = sqlite3.connect(DB_NAME)
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            INSERT INTO logs (station_id, timestamp, assembly_time, defect_count, defect_type, success)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (
+            data['station_id'],
+            data['timestamp'],
+            data['assembly_time'],
+            data['defect_count'],
+            data['defect_type'],
+            data['success']
+        ))
+
+        conn.commit()
+        return True
+
+    except sqlite3.Error as e:
+        print(f"Error inserting log: {e}")
+        return False
+
+    finally:
+        if conn:
+            conn.close()
+

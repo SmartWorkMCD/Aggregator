@@ -1,26 +1,35 @@
-from data_storage import create_db, insert_log
-from aggregator_core import calculate_metrics
-from datetime import datetime
+# API SERVER
 
-def main():
-    create_db()  
+from fastapi import FastAPI
+from .aggregator_core import calculate_metrics
+from .data_storage import insert_log, create_db
+from pydantic import BaseModel
 
-    # Simulated input data
-    dummy_data = {
-        "station_id": "WS_1",
-        "timestamp": datetime.now().isoformat(),
-        "assembly_time": 45.2,
-        "defect_count": 1,
-        "defect_type": "misalignment",
-        "success": False
-    }
+create_db()
 
-    insert_log(dummy_data)
+app = FastAPI(
+    title="Smart Work Aggregator API",
+    description="API to expose aggregated station metrics",
+    version="1.0.0"
+)
 
-    # Show metrics
-    metrics = calculate_metrics()
-    print("Aggregated metrics:", metrics)
+class DataInput(BaseModel):
+    station_id: str
+    timestamp: str
+    assembly_time: float
+    defect_count: int
+    defect_type: str
+    success: bool
 
-if __name__ == "__main__":
-    main()
+@app.get("/metrics")
+def get_metrics():
+    """
+    Returns the aggregated metrics calculated by the Aggregator.
+    """
+    return calculate_metrics()
 
+@app.post("/data")
+def post_data(data: DataInput):
+    print("Received data: ")
+    print(data.model_dump())
+    return {"success": insert_log(data.model_dump())}
