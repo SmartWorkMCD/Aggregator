@@ -11,10 +11,10 @@ The Aggregator expects JSON data in the following format:
 
 ```json
 {
-  "station_id": "string",
-  "timestamp": "ISO 8601 string",
+  "station_id": "station_23495",
+  "timestamp": "2025-05-30T17:41:23.456789",
   "assembly_time": 45.2,
-  "defect_count": 1,
+  "defect_count": 2,
   "defect_type": "alignment",
   "success": false
 }
@@ -26,7 +26,7 @@ The Aggregator expects JSON data in the following format:
 
 ### Responsible Members:
 - Main Responsible: Inês
-- Team: Inês + To be defined later
+- Team: Inês Matos + Pedro Batista
 
 ## Running the App
 
@@ -64,9 +64,8 @@ To run the app locally, follow these steps:
     ```sh
     uvicorn app.api_server:app --reload
     ```
-
-    - Access the API docs at: http://127.0.0.1:8000/docs
     - Access the endpoint directly: http://127.0.0.1:8000/metrics
+    - Access the docs: http://127.0.0.1:8000/docs
 
 
 7. **Run the data collector (optional):**
@@ -75,50 +74,3 @@ To run the app locally, follow these steps:
     ```
 
     - The service will listen on port 5001 for incoming JSON data from workstations.
-
-## Running the Tests
-
-To run the tests, follow these steps:
-
-1. **Ensure the virtual environment is activated**:
-    ```sh
-    .venv\Scripts\activate  # On Windows
-    source .venv/bin/activate  # On macOS/Linux
-    ```
-
-2. **Run the tests using pytest**:
-    ```sh
-    pytest
-    ```
-
-## Contribution Guidelines
-
-To ensure a smooth collaboration, please follow these guidelines:
-
-1. **Do not push directly to the `main` branch**: All changes should be made through pull requests.
-2. **Submit pull requests to the `development` branch**: Create a new branch for your feature or bug fix and submit a pull request to the `development` branch.
-3. **Write clear commit messages**: Use descriptive commit messages that explain the purpose of the changes.
-4. **Run tests before submitting a pull request**: Ensure that all tests pass and that your changes do not introduce any new issues.
-5. **Follow the coding standards**: Maintain consistent coding style and adhere to the project's coding standards.
-
-### Example Workflow
-
-1. **Create a new branch**:
-    ```sh
-    git checkout -b feature/my-new-feature
-    ```
-
-2. **Make your changes and commit them**:
-    ```sh
-    git add .
-    git commit -m "Add new feature"
-    ```
-
-3. **Push your branch to GitHub**:
-    ```sh
-    git push origin feature/my-new-feature
-    ```
-
-4. **Create a pull request**: Go to the GitHub repository and create a pull request to the `development` branch.
-
-Thank you for contributing to the project!

@@ -30,6 +30,4 @@ def get_metrics():
 
 @app.post("/data")
 def post_data(data: DataInput):
-    print("Received data: ")
-    print(data.model_dump())
     return {"success": insert_log(data.model_dump())}

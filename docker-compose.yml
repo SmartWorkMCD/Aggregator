@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  aggregator:
+    build: .
+    container_name: aggregator
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data  # pasta para armazenar o aggregator.db
+    restart: unless-stopped
